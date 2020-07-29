@@ -7,21 +7,24 @@ Definir e-mails por especialidade ou procedimentos
 
 Mini mundo
 o usuário mediante autenticação poderá cadastrar, consultar ou deletar um fornecedor, especialidade ou procedimento.
-O usuário poderá selecionar uma CATEGORIA e o sistema irá mostrar uma lista de todos os fornecedores e uma lista de e-mail já formatada para envio.
+O usuário poderá selecionar uma CATEGORIA e o sistema irá mostrar uma lista de todos os fornecedores e uma lista de e-mails já formatada para envio.
 O usuário poderá selecionar um ITEM e o sistema irá mostrar uma lista de todos os fornecedores e uma lista de e-mail já formatada para envio.
-O sistema listara os procedimentos de acordo com a especialidade
+O sistema listara os items de acordo com a category
+o usuario podera cadastrar diversos contatos para mesmo fornecedor
+
+
 RF01
 Crud usuários*
 RF02
 Crud fornecedores
 RF03
-Crud CATEGORIAS
+Crud categorias
 RF04
-Crud ITENS
+Crud items
 RF05
-Lista de e-mails por CATEGORIAS
+Lista de e-mails por categorias
 RF06
-Lista de e-mails por ITENS
+Lista de e-mails por itens
 
 
 
@@ -31,58 +34,7 @@ Lista de e-mails por ITENS
 
 
 
-FORNECEDORES
-CATEGORIAS
-ITEMS
-EMAILS
-Contatos
-ID
-ID
-ID 
-Id
-id
-NOME
-NOME
-NOME
-EMAIL
-nome
-CNPJ 
 
-
-DESCRICAO
-
-
-setor
-status
-
-
-
-
-
-
-telefone
-
-
-
-
-
-
-
-
-email
-
-
-
-
-
-
-
-
-situacao
-
-
-
-FORNECEDORN
 
 
 Fornecedor pode atender N especialidades
