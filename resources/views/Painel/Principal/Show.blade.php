@@ -45,6 +45,20 @@
                             <a href="{{ route('Painel.Fornecedores.index') }}" class="small-box-footer">Gerenciar <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    <!-- card items -->
+                    <div class="col-lg-3 col-xs-6">
+                        <div class="small-box bg-teal">
+                            <div class="inner">
+                                @inject('categorias', '\App\Categoria')
+                                <h3>{{ $items->count() }}</h3>
+                                <p>Items Cadastrados</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-list-alt"></i>
+                            </div>
+                            <a href="{{ route('Painel.Fornecedores.index') }}" class="small-box-footer">Gerenciar <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
 
 
                     <!-- card Usuarios -->
