@@ -1,31 +1,99 @@
-<p align="center"><img src="https://miro.medium.com/max/480/1*9-fHxysFiCv0gw1uWPCnhg.png" width="100"></p>
+O sistema irá permitir as funções abaixo
+Cadastro de usuários*
+Cadastro de fornecedores
+Cadastro de especialidades
+Cadastro de procedimentos 
+Definir e-mails por especialidade ou procedimentos
 
-<p align="center">
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Mini mundo
+o usuário mediante autenticação poderá cadastrar, consultar ou deletar um fornecedor, especialidade ou procedimento.
+O usuário poderá selecionar uma CATEGORIA e o sistema irá mostrar uma lista de todos os fornecedores e uma lista de e-mail já formatada para envio.
+O usuário poderá selecionar um ITEM e o sistema irá mostrar uma lista de todos os fornecedores e uma lista de e-mail já formatada para envio.
+O sistema listara os procedimentos de acordo com a especialidade
+RF01
+Crud usuários*
+RF02
+Crud fornecedores
+RF03
+Crud CATEGORIAS
+RF04
+Crud ITENS
+RF05
+Lista de e-mails por CATEGORIAS
+RF06
+Lista de e-mails por ITENS
 
-## Integração AdminLTE
 
-Para instalação desse repositório são necessárias as seguintes ações:
 
-- Abra seu GitBash ou similar na pasta aonde deseja clonar o repositório.
-- Digite o seguinte comando no GitBash : [git clone https://github.com/Shieldforce/AdminLTE.git] .
-- Assin que o repositório terminar de baixar dê o próximo comando: [composer update].
-- Depois Copie o arquivo .env.example e renomeie para .env.
-- Crie seu banco de dados.
-- Configure seu arquivo .env com os dados do seu host.
-- Gerar a Key com o comando [php artisan key:generate].
-- Logo após dê o comando no GitBash : [php artisan migrate].
-- E então o comando : [php artisan db:seed].
-- Então Crie o Virtual Host.
-- Acesso padrão user: admin@shieldforce e pass: admin e mãos a obra.
 
-Pronto o pacote já pode ser usuado.
 
-## Agradecimentos
 
-Obrigado a Equipe por colaborarem para o crescimento da empresa.
 
-## Licença
 
-Lisença:  [MIT license](https://opensource.org/licenses/MIT).
+
+FORNECEDORES
+CATEGORIAS
+ITEMS
+EMAILS
+Contatos
+ID
+ID
+ID 
+Id
+id
+NOME
+NOME
+NOME
+EMAIL
+nome
+CNPJ 
+
+
+DESCRICAO
+
+
+setor
+status
+
+
+
+
+
+
+telefone
+
+
+
+
+
+
+
+
+email
+
+
+
+
+
+
+
+
+situacao
+
+
+
+FORNECEDORN
+
+
+Fornecedor pode atender N especialidades
+Fornecedor poder ter N e-mails
+Email pertence a 1 fornecedor
+Especialidade por ser atendida por N fornecedores
+Especialidade tem N procedimentos
+Procedimento pertence a 1 especialidade
+
+
+
+
+
+
