@@ -18,8 +18,29 @@
           </span>
             </div>
         </form>
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MENU LATERAL</li>
-        </ul>
+        <!-- Sidebar Menu -->
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">HEADER</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active"><a href="{{ route('Painel.Fornecedores.index') }}"><i class="fa fa-building" aria-hidden="true"></i> <span>Fornecedores</span></a></li>
+        <li class="active"><a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Categorias</span></a></li>
+        <li class="active"><a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Items</span></a></li>
+        <li class="active"><a href="{{ route('Painel.Usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+        <!-- treeeview
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link active"></i> <span>Multilevel</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li>
+          treeeview -->
+      </ul>
+      <!-- /.sidebar-menu -->
+
     </section>
 </aside>

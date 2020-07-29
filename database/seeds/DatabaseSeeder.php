@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call('RoleTableSeeder');
         $this->call('UserTableSeeder');
         $this->call('PermissionTableSeeder');
+        $this->call('catgeoriaSeeder');
+        $this->call('ItemSeeder');
+        $this->call('ForncedorSeeder');
+        $this->call('ContatoSeeder');
+       // $this->call('catgeoriaSeeder');
     }
 }
 class RoleTableSeeder extends Seeder {
