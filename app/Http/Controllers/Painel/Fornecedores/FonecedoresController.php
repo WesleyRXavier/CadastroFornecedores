@@ -5,7 +5,9 @@ namespace App\Http\Controllers\painel\Fornecedores;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Fornecedor;
-
+use App\Categoria;
+use App\Item;
+use App\Http\Requests\RequestFornecedores;
 class FonecedoresController extends Controller
 {
 
@@ -30,7 +32,12 @@ class FonecedoresController extends Controller
     public function create()
     {
         $title = 'Painel Cadastro de Fornecedores';
-        return view('Painel.Fornecedores.create', compact('title'));
+        $categorias = Categoria::orderBy('nome')->get();
+
+        $items = Item::all();
+
+
+        return view('Painel.Fornecedores.create', compact('title','categorias','items'));
     }
 
     /**
@@ -39,7 +46,7 @@ class FonecedoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestFornecedores $request)
     {
         dd($request);
     }

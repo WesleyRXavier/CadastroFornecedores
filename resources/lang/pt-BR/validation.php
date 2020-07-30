@@ -171,6 +171,8 @@ return [
         'title'                 => 'título',
         'username'              => 'usuário',
         'year'                  => 'ano',
-
+        'fornecedorContatoName[]'           => ' Pelo menos um contato',
+        'fornecedorContatoEmail[]'           => ' Pelo menos um contato',
+        'fornecedorContatoTelefone[]'           => ' Pelo menos um contato',
     ],
 ];

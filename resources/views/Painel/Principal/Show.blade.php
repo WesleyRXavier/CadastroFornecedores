@@ -50,7 +50,7 @@
                         <div class="small-box bg-teal">
                             <div class="inner">
                                 @inject('categorias', '\App\Categoria')
-                                <h3>{{ $items->count() }}</h3>
+                                <h3>50</h3>
                                 <p>Items Cadastrados</p>
                             </div>
                             <div class="icon">

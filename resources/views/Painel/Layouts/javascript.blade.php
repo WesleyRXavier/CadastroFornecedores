@@ -20,6 +20,9 @@
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script>
+
+<!-- select 2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <!-- page script -->
 <script>
     $(function () {
@@ -33,4 +36,14 @@
             'autoWidth'   : true
         })
     })
+</script>
+<script>
+    $(document).ready(function() {
+    $('.selectCategorias').select2({
+        placeholder: 'Selecione as categorias deste Fornecedor'
+    });
+    $('.selectItems').select2({
+        placeholder: 'Selecione os items do Fornecedor'
+    });
+});
 </script>

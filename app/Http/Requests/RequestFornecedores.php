@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RequestFornecedores extends FormRequest
 {
@@ -26,12 +27,26 @@ class RequestFornecedores extends FormRequest
         return [
             'nome' => 'required',
             'cnpj' => 'required',
-            'status' => 'required',
+            'contatosNome' => 'required',
+           'contatosTelefone' => 'required',
+           'contatosEmail' => 'required',
+
+
 
         ];
-
-
-
-
     }
+        public function messages(){
+
+            return  [
+                'required' => '   :attribute e obrigatorio.',
+                'min' => ' O campo de ter no minimo :min caracteres.',
+
+
+            ];
+
+
+        }
+
+
+
 }

@@ -10,4 +10,9 @@ class Item extends Model
         'nome', 'descricao'
     ];
 
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+
+    }
+
 }

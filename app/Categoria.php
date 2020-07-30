@@ -10,4 +10,8 @@ class Categoria extends Model
         'nome', 'descricao'
     ];
 
+    public function items(){
+        return $this->hasMany(Item::class, 'id_categoria', 'id');
+    }
+
 }
