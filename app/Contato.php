@@ -5,8 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Contato extends Model
+
 {
+    protected $table = 'contatos';
+
     protected $fillable = [
-        'nome', 'telefone','celular','status'
+        'nome', 'id_fornecedor', 'telefone','celular','status'
     ];
+
+    public function fornecedor()
+    {
+        return $this->hasOne(Fornecedor::class, 'id', 'id_fornecedor');
+    }
 }

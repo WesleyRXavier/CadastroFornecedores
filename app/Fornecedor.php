@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Contato;
 class Fornecedor extends Model
 {
 
@@ -13,8 +13,8 @@ class Fornecedor extends Model
         'nome', 'cnpj','status'
     ];
 
-    public function emails(){
-        return $this->hasmany(Email::class);
+    public function contatos(){
+        return $this->hasmany(Contato::class,'id_fornecedor', 'id');
     }
 
     public function setCnpjAttribute($value)

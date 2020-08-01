@@ -7,10 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Fornecedor;
 use App\Categoria;
 use App\Item;
+use App\Contato;
 use App\Http\Requests\RequestFornecedores;
 class FonecedoresController extends Controller
 {
-
+    protected $table = 'fornecedores';
 
     /**
      * Display a listing of the resource.
@@ -21,6 +22,7 @@ class FonecedoresController extends Controller
     {
         $title = 'Painel de Fornecedores';
         $fornecedores = Fornecedor::all();
+
         return view('Painel.Fornecedores.index', compact('title', 'fornecedores'));
     }
 
@@ -48,6 +50,7 @@ class FonecedoresController extends Controller
      */
     public function store(RequestFornecedores $request)
     {
+
         dd($request);
     }
 
