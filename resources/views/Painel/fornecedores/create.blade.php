@@ -26,6 +26,9 @@
     caption {
         text-align: center
     }
+    .select2-selection__choice__display{
+    color: rgb(44, 44, 44);
+}
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -126,7 +129,7 @@
                             <!-- CATEGORIA -->
                             <div class="form-group">
                                 <label>Categoria</label>
-                                <select class="selectCategorias form-control col-md-12" name="categorias[]" multiple="multiple">
+                                <select class="selectCategorias form-control  col-md-12" name="categorias[]" multiple="multiple">
                                     @foreach($categorias as $categoria)
                                     <option value="{{$categoria->id}}"
                                         {{in_array($categoria->id, old("categorias") ?: []) ? "selected": ""}}>

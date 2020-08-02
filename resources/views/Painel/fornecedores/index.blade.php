@@ -1,6 +1,9 @@
 @extends('Painel.Layouts.index')
 
 @section('content')
+<style>
+
+</style>
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
@@ -43,9 +46,14 @@
                                         <td> <a class="btn btn-info fa fa-info"></a></td>
                                         <td>{{ $fornecedor->status }}</td>
 
-                                        <td>
-                                            <a class="btn btn-warning fa fa-edit"></a>
-                                            <a class="btn btn-danger fa fa-trash"></a>
+
+                                        <td style="display: flex">
+                                            <a  class="btn btn-warning fa fa-edit"></a>
+                                            <form action="{{ route('Painel.Fornecedores.destroy', $fornecedor->id)}}" method="post" style="margin-left: 5px">
+                                              @csrf
+                                              @method('DELETE')
+                                              <button class="btn btn-danger fa fa-trash" type="submit"></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

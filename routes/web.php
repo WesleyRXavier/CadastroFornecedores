@@ -26,5 +26,7 @@ Route::group(['namespace' => 'Painel'], function () {
     Route::get('/Painel/fornecedores', 'Fornecedores\FonecedoresController@index')->name('Painel.Fornecedores.index');
     Route::get('/Painel/fornecedores/create', 'Fornecedores\FonecedoresController@create')->name('Painel.Fornecedores.create');
     Route::post('/Painel/fornecedores/store', 'Fornecedores\FonecedoresController@store')->name('Painel.Fornecedores.store');
+    Route::delete('/Painel/fornecedores/del/{id}', 'Fornecedores\FonecedoresController@destroy')->name('Painel.Fornecedores.destroy');
+    Route::get('/Painel/fornecedores/edit', 'Fornecedores\FonecedoresController@edit')->name('Painel.Fornecedores.edit');
 
 });

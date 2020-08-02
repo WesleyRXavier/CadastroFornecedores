@@ -25,8 +25,8 @@ class RequestFornecedores extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required',
-            'cnpj' => 'required',
+            'nome' => 'required|unique:fornecedores,nome',
+            'cnpj' => (!empty($this->request->all()['id']) ? 'required|unique:fornecedores,cnpj,' . $this->request->all()['id'] : 'required|unique:fornecedores,cnpj'),
             'contatosNome' => 'required',
            'contatosTelefone' => 'required',
            'contatosEmail' => 'required',

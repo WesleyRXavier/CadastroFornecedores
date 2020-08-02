@@ -13,20 +13,20 @@ class Fornecedor extends Model
         'nome', 'cnpj','status'
     ];
 
+
+    public function categorias(){
+
+        return $this->belongsToMany(Categoria::class);
+    }
+    public function items(){
+
+        return $this->belongsToMany(Item::class);
+    }
+
     public function contatos(){
-        return $this->hasmany(Contato::class,'id_fornecedor', 'id');
+        return $this->hasmany(Contato::class,'contatos');
     }
 
-    public function setCnpjAttribute($value)
-    {
-        $this->attributes['cnpj'] = (!empty($value) ? $this->clearField($value) : null);
-    }
-
-    public function getCnpjAttribute($value)
-    {
-        return substr($value, 0, 2) . '.' . substr($value, 2, 3) . '.' . substr($value, 5, 3) .
-            '/' . substr($value, 8, 4) . '-' . substr($value, 12, 2);
-    }
 
     private function clearField(?string $param)
     {

@@ -15,6 +15,6 @@ class Contato extends Model
 
     public function fornecedor()
     {
-        return $this->hasOne(Fornecedor::class, 'id', 'id_fornecedor');
+        return $this->belongsTo(Fornecedor::class);
     }
 }

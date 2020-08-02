@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriaFornecedorsTable extends Migration
+class CreateTableFornecedorItem extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCategoriaFornecedorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categoria_fornecedor', function (Blueprint $table) {
+        Schema::create('fornecedor_item', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_fornecedor')->unsigned();
-            $table->integer('id_categoria')->unsigned();
+            $table->integer('id_item')->unsigned();
             $table->timestamps();
             $table->foreign('id_fornecedor')->references('id')->on('fornecedores');
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->foreign('id_item')->references('id')->on('items');
 
         });
     }
@@ -31,6 +31,6 @@ class CreateCategoriaFornecedorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoria_fornecedor');
+        Schema::dropIfExists('fornecedor_item');
     }
 }

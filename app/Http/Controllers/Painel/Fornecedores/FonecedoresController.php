@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\painel\Fornecedores;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Fornecedor;
 use App\Categoria;
-use App\Item;
+use App\Categoria_Fornecedor;
 use App\Contato;
+use App\Fornecedor;
+use App\Fornecedor_Item;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFornecedores;
+use App\Item;
+use Illuminate\Http\Request;
+
 class FonecedoresController extends Controller
 {
-    protected $table = 'fornecedores';
 
     /**
      * Display a listing of the resource.
@@ -21,7 +23,7 @@ class FonecedoresController extends Controller
     public function index()
     {
         $title = 'Painel de Fornecedores';
-        $fornecedores = Fornecedor::all();
+        $fornecedores = Fornecedor::orderBy('created_at', 'desc')->get();
 
         return view('Painel.Fornecedores.index', compact('title', 'fornecedores'));
     }
@@ -38,8 +40,7 @@ class FonecedoresController extends Controller
 
         $items = Item::all();
 
-
-        return view('Painel.Fornecedores.create', compact('title','categorias','items'));
+        return view('Painel.Fornecedores.create', compact('title', 'categorias', 'items'));
     }
 
     /**
@@ -50,8 +51,57 @@ class FonecedoresController extends Controller
      */
     public function store(RequestFornecedores $request)
     {
+        $data = $request->all();
 
-        dd($request);
+        $items = $data['items'];
+        $categorias = $data['categorias'];
+        $contatosEmail = Contato::find($data['contatosEmail']);
+        $contatosTelefone = Contato::find($data['contatosTelefone']);
+        $contatosCelular = Contato::find($data['contatosCelular']);
+        $contatosNome = Contato::find($data['contatosNome']);
+
+        $dadosFornecedor = [
+            'nome' => $data['nome'],
+            'cnpj' => $data['cnpj'],
+            'status' => 1,
+        ];
+
+        $fornecedor = Fornecedor::create($dadosFornecedor);
+
+        foreach ($categorias as $categoria) {
+
+            $categoria_fornecedor = new Categoria_Fornecedor();
+            $categoria_fornecedor->id_fornecedor = $fornecedor->id;
+            $categoria_fornecedor->id_categoria = $categoria;
+
+            $categoria_fornecedor->save();
+
+        }
+
+        foreach ($items as $item) {
+            $fornecedoritem = new Fornecedor_Item();
+            $fornecedoritem->id_fornecedor = $fornecedor->id;
+            $fornecedoritem->id_item = $item;
+            $fornecedoritem->save();
+
+        }
+
+        foreach ($contatosEmail as $contatoEmail) {
+            $i = 0;
+            $contato = new Contato();
+            $contato->nome = $contatosNome[i];
+            $contato->telefone = $contatosTelefone[i];
+            $contato->celular = $contatosCelular[i];
+            $contato->email = $contatosEmail[i];
+            $contato->status = 1;
+            $contato->id_fornecedor = $fornecedor->id;
+            $contato->save();
+            $i++;
+
+        }
+
+        return redirect()->route('Painel.Fornecedores.index');
+
     }
 
     /**
@@ -96,6 +146,9 @@ class FonecedoresController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fornecedor = Fornecedor::find($id);
+        $fornecedor->delete();
+
+        return redirect()->route('Painel.Fornecedores.index')->with('success', 'Stock has been deleted Successfully');
     }
 }

@@ -40,10 +40,14 @@
 <script>
     $(document).ready(function() {
     $('.selectCategorias').select2({
-        placeholder: 'Selecione as categorias deste Fornecedor'
+
+        placeholder: 'Selecione as categorias deste Fornecedor',
+
+
     });
     $('.selectItems').select2({
-        placeholder: 'Selecione os items do Fornecedor'
+        placeholder: 'Selecione os items do Fornecedor',
+
     });
 });
 </script>

@@ -14,5 +14,8 @@ class Item extends Model
         return $this->belongsTo(Categoria::class);
 
     }
+    public function fornecedores(){
+        return $this->belongsToMany(Fornecedor::class);
+    }
 
 }
