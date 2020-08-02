@@ -18,8 +18,8 @@ class CreateCategoriaFornecedorsTable extends Migration
             $table->integer('id_fornecedor')->unsigned();
             $table->integer('id_categoria')->unsigned();
             $table->timestamps();
-            $table->foreign('id_fornecedor')->references('id')->on('fornecedores');
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->foreign('id_fornecedor')->references('id')->on('fornecedores')->onDelete('cascade');;
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('cascade');;
 
         });
     }

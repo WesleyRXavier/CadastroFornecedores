@@ -23,6 +23,14 @@
 
 <!-- select 2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<script>
+    <!-- Toastrs -->
+        @jquery
+        @toastr_js
+        @toastr_render
+</script>
+
 <!-- page script -->
 <script>
     $(function () {
@@ -50,4 +58,5 @@
 
     });
 });
+
 </script>

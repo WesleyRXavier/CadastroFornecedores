@@ -146,9 +146,8 @@ class FonecedoresController extends Controller
      */
     public function destroy($id)
     {
-        $fornecedor = Fornecedor::find($id);
-        $fornecedor->delete();
 
-        return redirect()->route('Painel.Fornecedores.index')->with('success', 'Stock has been deleted Successfully');
+        toastr()->success('deletado!');
+        return redirect()->route('Painel.Fornecedores.index');
     }
 }

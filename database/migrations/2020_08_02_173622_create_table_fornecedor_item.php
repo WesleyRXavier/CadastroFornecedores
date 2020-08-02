@@ -18,8 +18,8 @@ class CreateTableFornecedorItem extends Migration
             $table->integer('id_fornecedor')->unsigned();
             $table->integer('id_item')->unsigned();
             $table->timestamps();
-            $table->foreign('id_fornecedor')->references('id')->on('fornecedores');
-            $table->foreign('id_item')->references('id')->on('items');
+            $table->foreign('id_fornecedor')->references('id')->on('fornecedores')->onDelete('cascade');;
+            $table->foreign('id_item')->references('id')->on('items')->onDelete('cascade');;
 
         });
     }

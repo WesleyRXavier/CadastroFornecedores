@@ -37,4 +37,5 @@
             background: transparent !important;
         }
     </style>
+    @toastr_css
 </head>
