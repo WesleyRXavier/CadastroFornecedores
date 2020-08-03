@@ -18,6 +18,7 @@ class CreateContatosTable extends Migration
             $table->string('nome')->unique();
             $table->string('telefone')->nullable();
             $table->string('celular')->nullable();
+            $table->string('email')->unique();
             $table->smallInteger('status');
             $table->integer('id_fornecedor')->unsigned();
             $table->timestamps();

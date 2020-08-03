@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\painel\Fornecedores;
-
+use Illuminate\Database\Eloquent\Model;
 use App\Categoria;
 use App\Categoria_Fornecedor;
 use App\Contato;
@@ -24,6 +24,7 @@ class FonecedoresController extends Controller
     {
         $title = 'Painel de Fornecedores';
         $fornecedores = Fornecedor::orderBy('created_at', 'desc')->get();
+
 
         return view('Painel.Fornecedores.index', compact('title', 'fornecedores'));
     }
@@ -146,6 +147,12 @@ class FonecedoresController extends Controller
      */
     public function destroy($id)
     {
+
+       $fornecedor= Fornecedor::find($id);
+
+       $fornecedor->categorias()->detach($fornecedor->categorias);
+       $fornecedor->items()->detach($fornecedor->items);
+       $fornecedor->delete();
 
         toastr()->success('deletado!');
         return redirect()->route('Painel.Fornecedores.index');

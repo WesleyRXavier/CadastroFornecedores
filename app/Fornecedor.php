@@ -16,11 +16,11 @@ class Fornecedor extends Model
 
     public function categorias(){
 
-        return $this->belongsToMany(Categoria::class);
+        return $this->belongsToMany(Categoria::class,'categoria_fornecedor','id_fornecedor','id_categoria');
     }
     public function items(){
 
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class,'fornecedor_item','id_fornecedor','id_item');
     }
 
     public function contatos(){

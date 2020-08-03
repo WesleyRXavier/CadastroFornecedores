@@ -16,7 +16,7 @@ class Categoria extends Model
 
 
     public function fornecedores(){
-        return $this->belongsToMany(Fornecedor::class);
+        return $this->belongsToMany(Fornecedor::class,'categoria_fornecedor','id_categoria','id_fornecedor');
     }
 
     public function items(){

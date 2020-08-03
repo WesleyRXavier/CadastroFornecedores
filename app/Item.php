@@ -15,7 +15,7 @@ class Item extends Model
 
     }
     public function fornecedores(){
-        return $this->belongsToMany(Fornecedor::class);
+        return $this->belongsToMany(Fornecedor::class,'fornecedor_item','id_item','id_fornecedor');
     }
 
 }
