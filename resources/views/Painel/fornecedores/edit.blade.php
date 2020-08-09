@@ -26,9 +26,10 @@
     caption {
         text-align: center
     }
-    .select2-selection__choice__display{
-    color: rgb(44, 44, 44);
-}
+
+    .select2-selection__choice__display {
+        color: rgb(44, 44, 44);
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -59,8 +60,8 @@
                             <div class="form-group has-feedback">
                                 <label for="nome">Nome:</label>
                                 <input type="text" class="form-control  {{ $errors->has('nome') ? ' is-invalid' : '' }}"
-                                    placeholder="Nome Completo" value="{{ old('nome') }}" name="nome" id="nome"
-                                    autofocus>
+                                    placeholder="Nome Completo" value="{{ old('nome') ?? $fornecedor->nome}}"
+                                    name="nome" id="nome" autofocus>
                                 <span class="form-control-feedback"></span>
                                 @if ($errors->has('nome'))
                                 <span class="invalid-feedback" role="alert">
@@ -72,8 +73,8 @@
                             <div class="form-group has-feedback ">
                                 <label for="cnpj">Cnpj:</label>
                                 <input type="text" class="form-control {{ $errors->has('cnpj') ? ' is-invalid' : '' }}"
-                                    placeholder="Cnpj" value="{{ old('cnpj') }}" name="cnpj" id="cnpj" maxlength="14"
-                                    autofocus onkeyup="mascaraCnpj(this);">
+                                    placeholder="Cnpj" value="{{ old('cnpj') ?? $fornecedor->cnpj }}" name="cnpj"
+                                    id="cnpj" maxlength="14" autofocus onkeyup="mascaraCnpj(this);">
                                 <span class="form-control-feedback"></span>
                                 @if ($errors->has('cnpj'))
                                 <span class="invalid-feedback" role="alert">
@@ -95,7 +96,7 @@
                                         data-target="#myModal">Adicionar
                                         contato </button>
                                 </div>
-                                <table class="table table-dark"   id="tblContatos">
+                                <table class="table table-dark" id="tblContatos">
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
@@ -107,21 +108,14 @@
                                     </thead>
                                     <tbody>
                                         @if (old('contatosNome'))
-                                        @foreach (old('contatosNome') as $contatosNome)
-                                        '<tr name="contatos">
-                                            <td>{{ old('contatosNome.'.$loop->index)  }}"</td>
-                                            <td>{{ old('contatosTelefone.'.$loop->index)  }}/{{ old('contatosCelular.'.$loop->index) }}
-                                            </td>
-                                            <td class="tdEmail">{{ old('contatosEmail.'.$loop->index)  }}</td>
-                                            <td><a class="btn btn-danger fa fa-trash" onclick="RemoveContato(this)"></a>
-                                            </td>
-                                        </tr>'
 
-                                        @endforeach
+
+
 
 
 
                                         @endif
+
                                     </tbody>
                                 </table>
                             </div>
@@ -129,15 +123,21 @@
                             <!-- CATEGORIA -->
                             <div class="form-group">
                                 <label>Categoria</label>
-                                <select class="selectCategorias form-control  col-md-12" name="categorias[]" multiple="multiple">
+                                <select class="selectCategorias form-control  col-md-12" name="categorias[]"
+                                    multiple="multiple">
                                     @foreach($categorias as $categoria)
                                     <option value="{{$categoria->id}}"
-                                        {{in_array($categoria->id, old("categorias") ?: []) ? "selected": ""}}>
+                                        {{(in_array($categoria->id, old("categorias") ?: []) ? "selected":(in_array($categoria->id, $fornecedoCategorias ?: []) ? "selected":  ""))}}>
                                         {{$categoria->nome}}
                                     </option>
                                     @endforeach
 
                                 </select>
+                                @if ($errors->has('nome'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong class="alert-danger">{{ $errors->first('categorias') }}</strong>
+                                </span>
+                                @endif
                             </div>
 
                             <!-- ITEM -->
@@ -149,7 +149,8 @@
                                         @foreach ($items as $item)
                                         @if ($item->id_categoria == $categoria->id)
                                         <option value="{{$item->id}}"
-                                            {{in_array($item->id, old("items") ?: []) ? "selected": ""}}>{{$item->nome}}
+                                            {{(in_array($item->id, old("items") ?: []) ? "selected":(in_array($item->id, $fornecedoItems ?: []) ? "selected":  ""))}}>
+                                            {{$item->nome}}
                                         </option>
                                         @endif
                                         @endforeach
@@ -159,19 +160,36 @@
                             <!-- INPUTS DO CONTATO -->
                             <div id="inputsAdicionais">
                                 @if (old('contatosNome'))
+                                <script>
+                                    limpaInputs();
+                                </script>
                                 @foreach (old('contatosNome') as $contatosNome)
 
-                                    <input type="hidden" value="{{ old('contatosNome.'.$loop->index)  }}" name="contatosNome[]"/>
-                                    <input type="hidden" value="{{ old('contatosTelefone.'.$loop->index)  }}" name="contatosTelefone[]"/>
-                                    <input type="hidden" value="{{ old('contatosCelular.'.$loop->index)  }}" name="contatosCelular[]"/>
-                                    <input type="hidden" value="{{ old('contatosEmail.'.$loop->index)  }}" name="contatosEmail[]"/>
+                                <input type="" value="{{ old('contatosNome.'.$loop->index)  }}" name="contatosNome[]" />
+                                <input type="" value="{{ old('contatosTelefone.'.$loop->index)  }}"
+                                    name="contatosTelefone[]" />
+                                <input type="" value="{{ old('contatosCelular.'.$loop->index)  }}"
+                                    name="contatosCelular[]" />
+                                <input type="" value="{{ old('contatosEmail.'.$loop->index)  }}"
+                                    name="contatosEmail[]" />
+
+                                @endforeach
+                                @endif
+                                @if ($contatos)
+                                @foreach ($contatos as $contato)
+
+                                <input type="hidden" value="{{ $contato->nome }}" name="contatosNome[]" />
+                                <input type="hidden" value="{{ $contato->telefone  }}" name="contatosTelefone[]" />
+                                <input type="hidden" value="{{$contato->celular }}" name="contatosCelular[]" />
+                                <input type="hidden" value="{{ $contato->email }}" name="contatosEmail[]" />
 
                                 @endforeach
                                 @endif
                             </div>
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar Fornecedor</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar
+                                    Fornecedor</button>
                             </div>
 
                         </form>
@@ -207,13 +225,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="contatoTelefone">Telefone:</label>
-                            <input type="number" class="form-control" name="contatoTelefone" id="contatoTelefone"
-                                >
+                            <input type="number" class="form-control" name="contatoTelefone" id="contatoTelefone">
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="celular">WhatsApp:</label>
-                            <input type="number" class="form-control" name="contatoCelular" id="contatoCelular"
-                                >
+                            <input type="number" class="form-control" name="contatoCelular" id="contatoCelular">
                         </div>
                         <div class="form-group col-md-12" style="margin-bottom: 50px">
                             <label for="contatoEmail">Email:</label>
@@ -223,7 +239,8 @@
                 <div class="erroCampo"></div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="fechaModal()">Fechar</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"
+                        onclick="fechaModal()">Fechar</button>
                     <button type="submit" onclick="SalvaContato()" class="btn btn-success">Salvar</button>
                 </div>
                 </form>
@@ -238,9 +255,10 @@
 
 @endsection
 
+
+
+
 <script>
-
-
     function SalvaContato(){
         event.preventDefault();
         var nome = $('#contatoNome').val();
@@ -250,6 +268,7 @@
 
 
 //
+
 if( nome && email) {
 var contato =0;
 //procura na lista se ja existe o contato
@@ -284,15 +303,15 @@ var lista = $('.tdEmail');
             }
 
 
-            var linhaTbl ='<tr name="contatos"><td>'+ nome +'</td>'+'   '+ '<td>'+ NumerosTel+'</td>'+' '+'<td class="tdEmail">'+ email +'</td><td><a class="btn-sm btn-danger fa fa-trash" onclick="RemoveContato(this)"></a></td></tr>';
+            var linhaTbl ='<tr name="contatos" id="trContatos"><td>'+ nome +'</td>'+'   '+ '<td>'+ NumerosTel+'</td>'+' '+'<td class="tdEmail">'+ email +'</td><td><a class="btn-sm btn-danger fa fa-trash" onclick="RemoveContato(this)"></a></td></tr>';
 
-             var inputs =  '<input type="" name="contatosNome[]" value="' +
+             var inputs =  '<input type="hidden" name="contatosNome[]" value="' +
                 nome +
-                '"><input type="" name="contatosTelefone[]" value="' +
+                '"><input type="hidden" name="contatosTelefone[]" value="' +
                 telefone +
-                '"><input type="" name="contatosCelular[]" value="' +
+                '"><input type="hidden" name="contatosCelular[]" value="' +
                 celular +
-                '"><input type="" name="contatosEmail[]" value="' +
+                '"><input type="hidden" name="contatosEmail[]" value="' +
                 email +
                 '"><br>';
 
@@ -307,7 +326,7 @@ var lista = $('.tdEmail');
 
 
         }else{
-         alert("Preecha todos os Campos ")
+
 
         }
                 //
@@ -315,6 +334,8 @@ var lista = $('.tdEmail');
 
 
     }
+
+
 
     function RemoveContato(tr){
 
@@ -332,6 +353,16 @@ function fechaModal(){
 }
 
 
+function limpaInputs(){
+
+}
+
+function LimpaTbl(){
+    $('#tblContatos').closest('tr').remove();
+}
+
+
 
 
 </script>
+

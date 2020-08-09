@@ -48,7 +48,7 @@
 
 
                                         <td style="display: flex">
-                                            <a  class="btn btn-warning fa fa-edit"></a>
+                                            <a href="{{ route('Painel.Fornecedores.edit', $fornecedor->id) }}" class="btn btn-warning fa fa-edit"></a>
                                             <form action="{{ route('Painel.Fornecedores.destroy', $fornecedor->id)}}" method="post" style="margin-left: 5px">
                                               @csrf
                                               @method('DELETE')

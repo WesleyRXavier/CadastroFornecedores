@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\painel\Fornecedores;
-use Illuminate\Database\Eloquent\Model;
+
 use App\Categoria;
-use App\Categoria_Fornecedor;
 use App\Contato;
 use App\Fornecedor;
-use App\Fornecedor_Item;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFornecedores;
 use App\Item;
@@ -24,7 +22,6 @@ class FonecedoresController extends Controller
     {
         $title = 'Painel de Fornecedores';
         $fornecedores = Fornecedor::orderBy('created_at', 'desc')->get();
-
 
         return view('Painel.Fornecedores.index', compact('title', 'fornecedores'));
     }
@@ -56,10 +53,10 @@ class FonecedoresController extends Controller
 
         $items = $data['items'];
         $categorias = $data['categorias'];
-        $contatosEmail = Contato::find($data['contatosEmail']);
-        $contatosTelefone = Contato::find($data['contatosTelefone']);
-        $contatosCelular = Contato::find($data['contatosCelular']);
-        $contatosNome = Contato::find($data['contatosNome']);
+        $contatosEmail = $data['contatosEmail'];
+        $contatosTelefone = $data['contatosTelefone'];
+        $contatosCelular = $data['contatosCelular'];
+        $contatosNome = $data['contatosNome'];
 
         $dadosFornecedor = [
             'nome' => $data['nome'],
@@ -69,38 +66,50 @@ class FonecedoresController extends Controller
 
         $fornecedor = Fornecedor::create($dadosFornecedor);
 
-        foreach ($categorias as $categoria) {
+        try {
+            $fornecedor->categorias()->attach($categorias);
 
-            $categoria_fornecedor = new Categoria_Fornecedor();
-            $categoria_fornecedor->id_fornecedor = $fornecedor->id;
-            $categoria_fornecedor->id_categoria = $categoria;
-
-            $categoria_fornecedor->save();
-
+        } catch (Exception $err) {
+            $fornecedor->categorias()->detach($categorias);
+            $fornecedor->delete();
+            toastr()->danger('Erro ao salvar Fornecedor!');
+            return redirect()->route('Painel.Fornecedores.create');
         }
 
-        foreach ($items as $item) {
-            $fornecedoritem = new Fornecedor_Item();
-            $fornecedoritem->id_fornecedor = $fornecedor->id;
-            $fornecedoritem->id_item = $item;
-            $fornecedoritem->save();
-
+        try {
+            $fornecedor->items()->attach($items);
+        } catch (Exception $err) {
+            $fornecedor->categorias()->detach($categorias);
+            $fornecedor->items()->detach($items);
+            $fornecedor->delete();
+            toastr()->danger('Erro ao salvar Fornecedor!');
+            return redirect()->route('Painel.Fornecedores.create');
         }
 
-        foreach ($contatosEmail as $contatoEmail) {
+        try {
             $i = 0;
-            $contato = new Contato();
-            $contato->nome = $contatosNome[i];
-            $contato->telefone = $contatosTelefone[i];
-            $contato->celular = $contatosCelular[i];
-            $contato->email = $contatosEmail[i];
-            $contato->status = 1;
-            $contato->id_fornecedor = $fornecedor->id;
-            $contato->save();
-            $i++;
+            foreach ($contatosEmail as $contatoEmail) {
+
+                $contato = new Contato();
+                $contato->nome = $contatosNome[$i];
+                $contato->telefone = $contatosTelefone[$i];
+                $contato->celular = $contatosCelular[$i];
+                $contato->email = $contatoEmail;
+                $contato->status = 1;
+                $contato->id_fornecedor = $fornecedor->id;
+                $contato->save();
+                $i += 1;
+
+            }
+        } catch (Exception $err) {
+            $fornecedor->categorias()->detach($categorias);
+            $fornecedor->items()->detach($items);
+            $fornecedor->delete();
+            toastr()->danger('Erro ao salvar Fornecedor!');
+            return redirect()->route('Painel.Fornecedores.create');
 
         }
-
+        toastr()->success('Fornecedor Foi cadastrado!');
         return redirect()->route('Painel.Fornecedores.index');
 
     }
@@ -124,7 +133,20 @@ class FonecedoresController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Painel Cadastro de Fornecedores';
+        $categorias = Categoria::orderBy('nome')->get();
+        $items = Item::all();
+        $contatos = Contato::where('id_fornecedor', $id)->get();
+        $fornecedor = Fornecedor::find($id)->first();
+       for($i=0 ;$i<$fornecedor->items->count();$i++){
+           $fornecedoItems[$i]= $fornecedor->items[$i]->id;
+       }
+       for($j=0 ;$j<$fornecedor->categorias->count();$j++){
+        $fornecedoCategorias[$j]= $fornecedor->categorias[$j]->id;
+    }
+
+
+        return view('Painel.Fornecedores.edit', compact('title', 'categorias', 'items','fornecedor','fornecedoItems','fornecedoCategorias','contatos'));
     }
 
     /**
@@ -148,11 +170,11 @@ class FonecedoresController extends Controller
     public function destroy($id)
     {
 
-       $fornecedor= Fornecedor::find($id);
+        $fornecedor = Fornecedor::find($id);
 
-       $fornecedor->categorias()->detach($fornecedor->categorias);
-       $fornecedor->items()->detach($fornecedor->items);
-       $fornecedor->delete();
+        $fornecedor->categorias()->detach($fornecedor->categorias);
+        $fornecedor->items()->detach($fornecedor->items);
+        $fornecedor->delete();
 
         toastr()->success('deletado!');
         return redirect()->route('Painel.Fornecedores.index');

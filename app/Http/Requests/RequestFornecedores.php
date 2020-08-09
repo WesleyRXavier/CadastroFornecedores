@@ -30,6 +30,7 @@ class RequestFornecedores extends FormRequest
             'contatosNome' => 'required',
            'contatosTelefone' => 'required',
            'contatosEmail' => 'required',
+           'categorias'=>'required',
 
 
 

@@ -127,7 +127,7 @@
                             </div>
 
                             <!-- CATEGORIA -->
-                            <div class="form-group">
+                            <div class="form-group has-feedback">
                                 <label>Categoria</label>
                                 <select class="selectCategorias form-control  col-md-12" name="categorias[]" multiple="multiple">
                                     @foreach($categorias as $categoria)
@@ -138,6 +138,11 @@
                                     @endforeach
 
                                 </select>
+                                @if ($errors->has('categorias'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong class="alert-danger">{{ $errors->first('categorias') }}</strong>
+                                </span>
+                                @endif
                             </div>
 
                             <!-- ITEM -->
@@ -286,13 +291,13 @@ var lista = $('.tdEmail');
 
             var linhaTbl ='<tr name="contatos"><td>'+ nome +'</td>'+'   '+ '<td>'+ NumerosTel+'</td>'+' '+'<td class="tdEmail">'+ email +'</td><td><a class="btn-sm btn-danger fa fa-trash" onclick="RemoveContato(this)"></a></td></tr>';
 
-             var inputs =  '<input type="" name="contatosNome[]" value="' +
+             var inputs =  '<input type="hidden" name="contatosNome[]" value="' +
                 nome +
-                '"><input type="" name="contatosTelefone[]" value="' +
+                '"><input type="hidden" name="contatosTelefone[]" value="' +
                 telefone +
-                '"><input type="" name="contatosCelular[]" value="' +
+                '"><input type="hidden" name="contatosCelular[]" value="' +
                 celular +
-                '"><input type="" name="contatosEmail[]" value="' +
+                '"><input type="hidden" name="contatosEmail[]" value="' +
                 email +
                 '"><br>';
 
