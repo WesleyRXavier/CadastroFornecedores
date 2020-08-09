@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-
+use App\Fornecedor;
 class RequestFornecedores extends FormRequest
 {
     /**
@@ -17,16 +17,20 @@ class RequestFornecedores extends FormRequest
         return Auth::check();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+
+
+
     public function rules()
     {
         return [
-            'nome' => 'required|unique:fornecedores,nome',
-            'cnpj' => (!empty($this->request->all()['id']) ? 'required|unique:fornecedores,cnpj,' . $this->request->all()['id'] : 'required|unique:fornecedores,cnpj'),
+            'nome' => [
+                'required',
+                'unique:fornecedores,nome,' . $this->id
+            ],
+            'cnpj' => [
+                'required',
+                'unique:fornecedores,cnpj,' . $this->id
+            ],
             'contatosNome' => 'required',
            'contatosTelefone' => 'required',
            'contatosEmail' => 'required',

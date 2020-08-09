@@ -1,0 +1,7 @@
+RedirectMatch ^/$ http://localhost/srsv/public
+RewriteEngine on
+RewriteCond %{HTTP_HOST} .
+RewriteCond %{HTTP_HOST} !^localhost/srsv
+RewriteRule (.*) http://localhost/srsv/public/$1 [R=301,L]
+
+
