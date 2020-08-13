@@ -51,7 +51,6 @@ class FonecedoresController extends Controller
     {
         $data = $request->all();
 
-        $items = $data['items'];
         $categorias = $data['categorias'];
         $contatosEmail = $data['contatosEmail'];
         $contatosTelefone = $data['contatosTelefone'];
@@ -77,16 +76,6 @@ class FonecedoresController extends Controller
         }
 
         try {
-            $fornecedor->items()->attach($items);
-        } catch (Exception $err) {
-            $fornecedor->categorias()->detach($categorias);
-            $fornecedor->items()->detach($items);
-            $fornecedor->delete();
-            toastr()->danger('Erro ao salvar Fornecedor!');
-            return redirect()->route('Painel.Fornecedores.create');
-        }
-
-        try {
             $i = 0;
             foreach ($contatosEmail as $contatoEmail) {
 
@@ -103,12 +92,24 @@ class FonecedoresController extends Controller
             }
         } catch (Exception $err) {
             $fornecedor->categorias()->detach($categorias);
-            $fornecedor->items()->detach($items);
             $fornecedor->delete();
             toastr()->danger('Erro ao salvar Fornecedor!');
             return redirect()->route('Painel.Fornecedores.create');
 
         }
+
+        if ($request->items) {
+            $items = $request->items;
+            try {
+                $fornecedor->items()->attach($items);
+            } catch (Exception $err) {
+                $fornecedor->categorias()->detach($categorias);
+                $fornecedor->delete();
+                toastr()->danger('Erro ao salvar Fornecedor!');
+                return redirect()->route('Painel.Fornecedores.create');
+            }
+        }
+
         toastr()->success('Fornecedor Foi cadastrado!');
         return redirect()->route('Painel.Fornecedores.index');
 
@@ -137,16 +138,19 @@ class FonecedoresController extends Controller
         $categorias = Categoria::orderBy('nome')->get();
         $items = Item::all();
         $contatos = Contato::where('id_fornecedor', $id)->get();
-        $fornecedor = Fornecedor::find($id)->first();
-       for($i=0 ;$i<$fornecedor->items->count();$i++){
-           $fornecedoItems[$i]= $fornecedor->items[$i]->id;
-       }
-       for($j=0 ;$j<$fornecedor->categorias->count();$j++){
-        $fornecedoCategorias[$j]= $fornecedor->categorias[$j]->id;
-    }
+        $fornecedor = Fornecedor::find($id);
+        $fornecedoItems = null;
+        $fornecedoCategorias = null;
+        if ($fornecedor->items->count() > 0) {
+            for ($i = 0; $i < $fornecedor->items->count(); $i++) {
+                $fornecedoItems[$i] = $fornecedor->items[$i]->id;
+            }
+        }
+        for ($j = 0; $j < $fornecedor->categorias->count(); $j++) {
+            $fornecedoCategorias[$j] = $fornecedor->categorias[$j]->id;
+        }
 
-
-        return view('Painel.Fornecedores.edit', compact('title', 'categorias', 'items','fornecedor','fornecedoItems','fornecedoCategorias','contatos'));
+        return view('Painel.Fornecedores.edit', compact('title', 'categorias', 'items', 'fornecedor', 'fornecedoItems', 'fornecedoCategorias', 'contatos'));
     }
 
     /**

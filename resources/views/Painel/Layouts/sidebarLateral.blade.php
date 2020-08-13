@@ -23,8 +23,8 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ route('Painel.Fornecedores.index') }}"><i class="fa fa-building" aria-hidden="true"></i> <span>Fornecedores</span></a></li>
-        <li class="active"><a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Categorias</span></a></li>
-        <li class="active"><a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Items</span></a></li>
+        <li class="active"><a href="{{ route('Painel.Categorias.index') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Categorias</span></a></li>
+        <li class="active"><a href="{{ route('Painel.Items.index') }}"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Items</span></a></li>
         <li class="active"><a href="{{ route('Painel.Usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span></a></li>
         <!-- treeeview
         <li class="treeview">

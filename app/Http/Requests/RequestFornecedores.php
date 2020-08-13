@@ -31,10 +31,11 @@ class RequestFornecedores extends FormRequest
                 'required',
                 'unique:fornecedores,cnpj,' . $this->id
             ],
+            'categorias'=>'required',
             'contatosNome' => 'required',
            'contatosTelefone' => 'required',
            'contatosEmail' => 'required',
-           'categorias'=>'required',
+
 
 
 

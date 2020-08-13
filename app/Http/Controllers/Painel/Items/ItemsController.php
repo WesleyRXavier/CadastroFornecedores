@@ -4,6 +4,9 @@ namespace App\Http\Controllers\painel\Items;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\itemsRequest;
+use App\Item;
+use App\Categoria;
 
 class ItemsController extends Controller
 {
@@ -14,7 +17,11 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Painel de Items';
+        $items = Item::with('categoria')->orderBy('nome', 'asc')->get();
+       // dd($items);
+
+       return view('Painel.Items.index', compact('title', 'items'));
     }
 
     /**
@@ -24,7 +31,10 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Painel Cadastro de Items';
+        $categorias = Categoria::all();
+
+        return view('Painel.Items.create', compact('title', 'categorias'));
     }
 
     /**
@@ -33,9 +43,14 @@ class ItemsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(itemsRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $item = Item::create($request->all());
+
+        toastr()->success('Item Foi cadastrado!');
+        return redirect()->route('Painel.Items.index');
     }
 
     /**
@@ -57,7 +72,11 @@ class ItemsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Edição de Items';
+        $item = Item::find($id);
+        $categorias = Categoria::all();
+
+        return view('Painel.Items.edit', compact('title', 'item','categorias'));
     }
 
     /**
@@ -67,9 +86,9 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(itemsRequest $request, $id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -80,6 +99,10 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
+
+        toastr()->success('deletado!');
+        return redirect()->route('Painel.Items.index');
     }
 }

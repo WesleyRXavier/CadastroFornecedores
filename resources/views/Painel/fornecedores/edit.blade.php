@@ -85,7 +85,7 @@
                                 <label for="cnpj">Cnpj:</label>
                                 <input type="text" class="form-control {{ $errors->has('cnpj') ? ' is-invalid' : '' }}"
                                     placeholder="Cnpj" value="{{ old('cnpj') ?? $fornecedor->cnpj }}" name="cnpj"
-                                    id="cnpj" maxlength="14" autofocus onkeyup="mascaraCnpj(this);">
+                                    id="cnpj" maxlength="18" autofocus onkeyup="mascaraCnpj(this);">
                                 <span class="form-control-feedback"></span>
                                 @if ($errors->has('cnpj'))
                                 <span class="invalid-feedback " role="alert">

@@ -33,12 +33,12 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Ediçao de Categorias
+            Cadastro de Items
             <small>SRSV-Compras</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('Painel.Principal.Show') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Edição de Categorias</li>
+            <li class="active">Cadastro de Items</li>
         </ol>
     </section>
     <section class="content">
@@ -48,18 +48,18 @@
 
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Editando Categoria</h3>
+                        <h3 class="box-title">Cadastrando Items</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form action="{{ route('Painel.Categorias.update', ['categoria' => $categoria->id]) }}" method="post">
+                        <form action="{{ route('Painel.Items.store') }}" method="post">
                             @csrf
-                            @method('PUT')
+
                             <!-- NOME -->
                             <div class="form-group has-feedback">
                                 <label for="nome">Nome:</label>
                                 <input type="text" class="form-control  {{ $errors->has('nome') ? ' is-invalid' : '' }}"
-                                    placeholder="Nome Completo"value="{{ old('nome') ?? $categoria->nome}}"
+                                    placeholder="Nome Completo" value="{{ old('nome') }}" name="nome" id="nome"
                                     autofocus required>
                                 <span class="form-control-feedback"></span>
                                 @if ($errors->has('nome'))
@@ -72,7 +72,7 @@
                             <div class="form-group has-feedback ">
                                 <label for="descricao">Descrição:</label>
                                 <input type="text" class="form-control {{ $errors->has('descricao') ? ' is-invalid' : '' }}"
-                                    placeholder="descricao" value="{{ old('descricao') ?? $categoria->descricao}}" name="descricao" id="descricao"
+                                    placeholder="descricao" value="{{ old('descricao') }}" name="descricao" id="descricao"
                                     autofocus required>
                                 <span class="form-control-feedback"></span>
                                 @if ($errors->has('descricao'))
@@ -81,6 +81,25 @@
                                 </span>
                                 @endif
 
+                            </div>
+                            <!-- CATEGORIA -->
+                            <div class="form-group has-feedback">
+                                <label>Categorias</label>
+                                <select class="selectCategorias form-control  col-md-12" name="id_categoria" id="categoriaItem" single>
+                                    <option value="volvo" disabled selected>Selecione uma categoria para o item</option>
+                                    @foreach($categorias as $categoria)
+                                    <option value="{{$categoria->id}}"
+                                        {{in_array($categoria->id, old("id_categoria") ?: []) ? "selected": ""}}>
+                                        {{$categoria->nome}}
+                                    </option>
+                                    @endforeach
+
+                                </select>
+                                @if ($errors->has('id_categoria'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong class="alert-danger">{{ $errors->first('id_categoria') }}</strong>
+                                </span>
+                                @endif
                             </div>
 
 
@@ -101,6 +120,7 @@
         </div>
     </section>
 </div>
+
 
 
 

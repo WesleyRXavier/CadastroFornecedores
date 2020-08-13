@@ -7,12 +7,12 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                Lista de Categorias
+                Lista de Items
                 <small>SRSV-Compras</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('Painel.Principal.Show') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Lista de Categorias</li>
+                <li class="active">Lista de Items</li>
             </ol>
         </section>
         <section class="content">
@@ -22,7 +22,7 @@
 
                     <div class="box ">
                         <div class="box-header">
-                            <h3 class="box-title">Lista de Categorias | Adicionar : <a href="{{ route('Painel.Categorias.create') }}" class="btn btn-success fa fa-plus"></a></h3>
+                            <h3 class="box-title">Lista de Items | Adicionar : <a href="{{ route('Painel.Items.create') }}" class="btn btn-success fa fa-plus"></a></h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -32,18 +32,20 @@
 
                                     <th>Nome</th>
                                     <th>Descricao</th>
+                                    <th>Categoria</th>
                                     <th>Ação</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                @foreach($categorias as $categoria)
+                                @foreach($items as $item)
                                     <tr>
-                                        <td>{{ $categoria->nome }}</td>
-                                        <td>{{ $categoria->descricao }}</td>
+                                        <td>{{ $item->nome }}</td>
+                                        <td>{{ $item->descricao }}</td>
+                                        <td>{{ $item->categoria->nome}}</td>
                                         <td style="display: flex">
-                                            <a href="{{ route('Painel.Categorias.edit', $categoria->id) }}" class="btn btn-warning fa fa-edit"></a>
-                                            <form action="{{ route('Painel.Categorias.destroy', $categoria->id)}}" method="post" style="margin-left: 5px">
+                                            <a href="{{ route('Painel.Items.edit', $item->id) }}" class="btn btn-warning fa fa-edit"></a>
+                                            <form action="{{ route('Painel.Items.destroy', $item->id)}}" method="post" style="margin-left: 5px">
                                               @csrf
                                               @method('DELETE')
                                               <button class="btn btn-danger fa fa-trash" type="submit"></button>
@@ -57,6 +59,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Descriçao</th>
+                                    <th>Categoria</th>
                                     <th>Ação</th>
                                 </tr>
                                 </tfoot>

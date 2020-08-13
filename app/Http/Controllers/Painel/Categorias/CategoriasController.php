@@ -4,6 +4,9 @@ namespace App\Http\Controllers\painel\Categorias;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\categoriaRequest;
+
+use App\Categoria;
 
 class CategoriasController extends Controller
 {
@@ -14,7 +17,10 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Painel de Categorias';
+        $categorias = Categoria::orderBy('created_at', 'desc')->get();
+
+        return view('Painel.Categorias.index', compact('title', 'categorias'));
     }
 
     /**
@@ -24,7 +30,9 @@ class CategoriasController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Painel Cadastro de Categorias';
+
+        return view('Painel.Categorias.create', compact('title'));
     }
 
     /**
@@ -33,9 +41,14 @@ class CategoriasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(categoriaRequest $request)
     {
-        //
+
+        $data = $request->all();
+        $categoria = Categoria::create($data);
+
+        toastr()->success('Categoria Foi cadastrado!');
+        return redirect()->route('Painel.Categorias.index');
     }
 
     /**
@@ -57,7 +70,10 @@ class CategoriasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Edição de Categorias';
+        $categoria = Categoria::find($id);
+
+        return view('Painel.Categorias.edit', compact('title', 'categoria'));
     }
 
     /**
@@ -69,7 +85,7 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -80,6 +96,10 @@ class CategoriasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete();
+
+        toastr()->success('deletado!');
+        return redirect()->route('Painel.Categorias.index');
     }
 }
