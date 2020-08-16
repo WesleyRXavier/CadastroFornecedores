@@ -44,7 +44,7 @@
     <section class="content">
         <div class="row">
 
-            <div class="col-xs-6">
+            <div class="col-md-6 col-xs-12">
 
                 <div class="box box-warning">
                     <div class="box-header with-border">

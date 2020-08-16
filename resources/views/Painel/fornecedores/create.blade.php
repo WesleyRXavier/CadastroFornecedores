@@ -44,15 +44,15 @@
     <section class="content">
         <div class="row">
 
-            <div class="col-xs-6">
+            <div class="col-md-6 col-xs-12">
 
-                <div class="box box-warning">
+                <div class="box box-warning ">
                     <div class="box-header with-border">
                         <h3 class="box-title">Cadastrando Fornecedor</h3>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        <form action="{{ route('Painel.Fornecedores.store') }}" method="post">
+                    <div class="box-body  ">
+                        <form action="{{ route('Painel.Fornecedores.store') }}" method="post" >
                             @csrf
 
                             <!-- NOME -->
@@ -73,7 +73,7 @@
                                 <label for="cnpj">Cnpj:</label>
                                 <input type="text" class="form-control {{ $errors->has('cnpj') ? ' is-invalid' : '' }}"
                                     placeholder="Cnpj" value="{{ old('cnpj') }}" name="cnpj" id="cnpj" maxlength="18"
-                                    autofocus onkeyup="mascaraCnpj(this);">
+                                    autofocus id="cnpj">
                                 <span class="form-control-feedback"></span>
                                 @if ($errors->has('cnpj'))
                                 <span class="invalid-feedback" role="alert">
@@ -211,13 +211,13 @@
                                 required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="contatoTelefone">Telefone:</label>
-                            <input type="number" class="form-control" name="contatoTelefone" id="contatoTelefone"
+                            <label for="contatoTelefone">Telefone Fixo:</label>
+                            <input type="text" class="form-control" name="contatoTelefone" id="contatoTelefone"
                                 >
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="celular">WhatsApp:</label>
-                            <input type="number" class="form-control" name="contatoCelular" id="contatoCelular"
+                            <input type="text" class="form-control" name="contatoCelular" id="contatoCelular"
                                 >
                         </div>
                         <div class="form-group col-md-12" style="margin-bottom: 50px">
@@ -242,6 +242,8 @@
 
 
 @endsection
+@section('js')
+
 
 <script>
 
@@ -327,16 +329,17 @@ var lista = $('.tdEmail');
 
     }
 
-    function mascaraCnpj(num) {
-	var campo = num;
-	campo.value = campo.value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"\$1.\$2.\$3\/\$4\-\$5");
-}
+
 function fechaModal(){
     $('.erroEmail').remove();
     $("#modalForm").trigger("reset");
 }
 
-
+$("#contatoTelefone").mask("(00) 0000-0000");
+$("#contatoCelular").mask("(00) 00000-0000");
+$("#cnpj").mask("00.000.000/0000-00");
 
 
 </script>
+@endsection
+

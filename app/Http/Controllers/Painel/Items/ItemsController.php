@@ -100,6 +100,7 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
+        $item->fornecedores()->detach($item->fornecedores);
         $item->delete();
 
         toastr()->success('deletado!');

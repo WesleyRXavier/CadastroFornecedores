@@ -24,7 +24,7 @@ class Fornecedor extends Model
     }
 
     public function contatos(){
-        return $this->hasmany(Contato::class,'contatos');
+        return $this->hasmany(Contato::class,'id_fornecedor');
     }
 
 

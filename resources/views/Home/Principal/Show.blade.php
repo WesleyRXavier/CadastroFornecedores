@@ -2,10 +2,10 @@
 
 @section('content')
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Repositório Instalado.</h1>
-        <p class="lead">Se precisar de ajuda pode entrar em contato com o email: shieldforce.com.br ou celular: (21) 9933-77224 | (21) 97018-5540.</p>
+        <h1 class="cover-heading">WX Sistemas.</h1>
+        <p class="lead">Sistema em construção: Em breve estara aberto para utilizaçao. Contato: (27) 99574-2580.</p>
         <p class="lead">
-            <a href="https://shieldforce.com.br" class="btn btn-lg btn-secondary">Saiba mais</a>
+            <a href="https://www.linkedin.com/in/wesley-roberto-xavier-b4a9a9110/" target="blank" class="btn btn-lg btn-secondary">Linkdin</a>
         </p>
     </main>
 @endsection

@@ -97,6 +97,7 @@ class CategoriasController extends Controller
     public function destroy($id)
     {
         $categoria = Categoria::find($id);
+        $categoria->fornecedores()->detach($categoria->fornecedores);
         $categoria->delete();
 
         toastr()->success('deletado!');

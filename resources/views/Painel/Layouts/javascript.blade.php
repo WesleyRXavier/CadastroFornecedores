@@ -23,8 +23,10 @@
 
 <!-- select 2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-
+<!-- swwetalert22 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!-- jquerymask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
 
 
@@ -65,3 +67,4 @@
 });
 
 </script>
+@yield('js')

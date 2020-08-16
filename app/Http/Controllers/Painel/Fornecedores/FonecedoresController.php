@@ -123,7 +123,11 @@ class FonecedoresController extends Controller
      */
     public function show($id)
     {
-        //
+        $fornecedor = Fornecedor::find($id);
+        $title =$fornecedor->nome;
+
+        return view('Painel.Fornecedores.show', compact('title', 'fornecedor'));
+
     }
 
     /**
@@ -134,7 +138,7 @@ class FonecedoresController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Painel Cadastro de Fornecedores';
+        $title = 'Painel Edição de Fornecedor';
         $categorias = Categoria::orderBy('nome')->get();
         $items = Item::all();
         $contatos = Contato::where('id_fornecedor', $id)->get();
@@ -175,7 +179,6 @@ class FonecedoresController extends Controller
     {
 
         $fornecedor = Fornecedor::find($id);
-
         $fornecedor->categorias()->detach($fornecedor->categorias);
         $fornecedor->items()->detach($fornecedor->items);
         $fornecedor->delete();

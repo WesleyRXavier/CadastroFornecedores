@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $compact =
             [
-                'title'=>'Página Principal da Home'
+                'title'=>'Cadastro de Fornecedores'
             ];
         return view('Home.Principal.Show', $compact);
     }
