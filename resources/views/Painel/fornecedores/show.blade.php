@@ -108,7 +108,7 @@
                                                 @foreach ($fornecedor->categorias as $categoria )
                                                     <p>{{ $categoria->nome }} :</p>
                                                     @foreach ($categoria->items as $item)
-                                                    <p>dsdsd</p>
+                                                    <p>{{ $item->nome }}</p>
 
                                                     @endforeach
                                                 @endforeach
