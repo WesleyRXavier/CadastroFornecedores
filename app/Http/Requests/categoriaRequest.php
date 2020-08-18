@@ -24,7 +24,10 @@ class categoriaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome'=>'required',
+            'nome' => [
+                'required',
+                'unique:categorias,nome,' . $this->id,
+            ],
             'descricao'=>'required',
         ];
     }

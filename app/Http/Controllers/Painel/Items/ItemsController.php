@@ -88,7 +88,14 @@ class ItemsController extends Controller
      */
     public function update(itemsRequest $request, $id)
     {
-        dd($id);
+        $item = Item::find($id);
+        $item->nome = $request->nome;
+        $item->descricao = $request->descricao;
+        $item->id_categoria = $request->id_categoria;
+        $item->save();
+
+        toastr()->success('Item Alterado com sucesso!');
+        return redirect()->route('Painel.Items.index');
     }
 
     /**

@@ -4,7 +4,8 @@
 @section('content')
 
 <style>
-    .btnModal ,.status {
+    .btnModal,
+    .status {
         display: inline;
         float: right;
         padding-bottom: 5px
@@ -53,17 +54,22 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form action="{{ route('Painel.Fornecedores.update', ['fornecedor' => $fornecedor->id]) }}" method="post">
+                        <form action="{{ route('Painel.Fornecedores.update', ['fornecedor' => $fornecedor->id]) }}"
+                            method="post">
                             @csrf
                             @method('PUT')
 
-                             <!-- STATUS -->
-                             <div class="form-group  status ">
+                            <!-- STATUS -->
+                            <div class="form-group  status ">
                                 <label>Status</label>
                                 <select name="status" id="status">
-                                    <option value="1" {{ (old('status') == '1' ? 'selected' : ($fornecedor->status == '1' ? 'selected' : '')) }}>Ativo</option>
-                                    <option value="0" {{ (old('status') == '0' ? 'selected' : ($fornecedor->status == '0' ? 'selected' : '')) }}>Desativado</option>
-                                  </select>
+                                    <option value="1"
+                                        {{ (old('status') == '1' ? 'selected' : ($fornecedor->status == '1' ? 'selected' : '')) }}>
+                                        Ativo</option>
+                                    <option value="0"
+                                        {{ (old('status') == '0' ? 'selected' : ($fornecedor->status == '0' ? 'selected' : '')) }}>
+                                        Desativado</option>
+                                </select>
                             </div>
                             <br>
 
@@ -128,18 +134,36 @@
                                             <td class="tdEmail">{{ old('contatosEmail.'.$loop->index)  }}</td>
                                             <td><a class="btn btn-danger fa fa-trash" onclick="RemoveContato(this)"></a>
                                             </td>
+                                            <td>
+                                                <input type="hidden" value="{{ old('contatosNome.'.$loop->index)  }}"
+                                                    name="contatosNome[]" />
+                                                <input type="hidden"
+                                                    value="{{ old('contatosTelefone.'.$loop->index)  }}"
+                                                    name="contatosTelefone[]" />
+                                                <input type="hidden" value="{{ old('contatosCelular.'.$loop->index)  }}"
+                                                    name="contatosCelular[]" />
+                                                <input type="hidden" value="{{ old('contatosEmail.'.$loop->index)  }}"
+                                                    name="contatosEmail[]" />
+                                            </td>
                                         </tr>
 
                                         @endforeach
                                         @else
-                                            @if ($contatos)
-                                            @foreach ($contatos as $contato)
+                                        @if ($contatos)
+                                        @foreach ($contatos as $contato)
                                         <tr name="contatos">
                                             <td>{{ $contato->nome  }}"</td>
                                             <td>{{ $contato->telefone  }}/{{ $contato->celular}}
                                             </td>
                                             <td class="tdEmail">{{ $contato->email }}</td>
-                                            <td><a class="btn btn-danger fa fa-trash" onclick="RemoveContato(this)"></a>
+                                            <td><a class="btn btn-danger fa fa-trash" onclick="RemoveContato(this)"
+                                                    ></a>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" value="{{ $contato->nome}}" name="contatosNome[]" />
+                                <input type="hidden" value="{{  $contato->telefone  }}" name="contatosTelefone[]" />
+                                <input type="hidden" value="{{  $contato->celular }}" name="contatosCelular[]" />
+                                <input type="hidden" value="{{  $contato->email  }}" name="contatosEmail[]" />
                                             </td>
                                         </tr>
 
@@ -164,7 +188,7 @@
                                     @endforeach
 
                                 </select>
-                                @if ($errors->has('nome'))
+                                @if ($errors->has('categorias'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong class="alert-danger">{{ $errors->first('categorias') }}</strong>
                                 </span>
@@ -190,39 +214,7 @@
                             </div>
                             <!-- INPUTS DO CONTATO -->
                             <div id="inputsAdicionais">
-                                @if (old('contatosNome'))
 
-                                @foreach (old('contatosNome') as $contatosNome)
-
-                                <input type="" value="{{ old('contatosNome.'.$loop->index)  }}" name="contatosNome[]" />
-                                <input type="" value="{{ old('contatosTelefone.'.$loop->index)  }}"
-                                    name="contatosTelefone[]" />
-                                <input type="" value="{{ old('contatosCelular.'.$loop->index)  }}"
-                                    name="contatosCelular[]" />
-                                <input type="" value="{{ old('contatosEmail.'.$loop->index)  }}"
-                                    name="contatosEmail[]" />
-
-                                @endforeach
-                                @else
-                                    @if ($contatos)
-                                    @foreach ($contatos as $contato)
-
-                                    <input type="hidden" value="{{ $contato->nome}}" name="contatosNome[]" />
-                                    <input type="hidden" value="{{  $contato->telefone  }}"
-                                        name="contatosTelefone[]" />
-                                    <input type="hidden" value="{{  $contato->celular }}"
-                                        name="contatosCelular[]" />
-                                    <input type="hidden" value="{{  $contato->email  }}"
-                                        name="contatosEmail[]" />
-
-                                    @endforeach
-
-
-
-
-                                    @endif
-
-                                @endif
 
                             </div>
                             <div class="box-footer">
@@ -264,11 +256,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="contatoTelefone">Telefone:</label>
-                            <input type="number" class="form-control" name="contatoTelefone" id="contatoTelefone">
+                            <input type="text" class="form-control" name="contatoTelefone" id="contatoTelefone">
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="celular">WhatsApp:</label>
-                            <input type="number" class="form-control" name="contatoCelular" id="contatoCelular">
+                            <input type="text" class="form-control" name="contatoCelular" id="contatoCelular">
                         </div>
                         <div class="form-group col-md-12" style="margin-bottom: 50px">
                             <label for="contatoEmail">Email:</label>
@@ -293,6 +285,7 @@
 
 
 @endsection
+@section('js')
 
 
 
@@ -342,7 +335,7 @@ var lista = $('.tdEmail');
             }
 
 
-            var linhaTbl ='<tr name="contatos" id="trContatos"><td>'+ nome +'</td>'+'   '+ '<td>'+ NumerosTel+'</td>'+' '+'<td class="tdEmail">'+ email +'</td><td><a class="btn-sm btn-danger fa fa-trash" onclick="RemoveContato(this)"></a></td></tr>';
+
 
              var inputs =  '<input type="hidden" name="contatosNome[]" value="' +
                 nome +
@@ -354,8 +347,10 @@ var lista = $('.tdEmail');
                 email +
                 '"><br>';
 
+                var linhaTbl ='<tr name="contatos" ><td >'+ nome +'</td>'+'   '+ '<td>'+ NumerosTel+'</td>'+' '+'<td class="tdEmail" >'+ email +'</td><td><a class="btn-sm btn-danger fa fa-trash" onclick="RemoveContato(this)" id="'+email+'"></a></td><td>'+inputs+' </td></tr>';
+
                 $("#contatos tbody").append(linhaTbl);
-                $("#inputsAdicionais").append(inputs);
+               // $("#inputsAdicionais").append(inputs);
 
                 $('.erroEmail').remove();
                 $('.erroCampo').append('<span class="alert alert-success erroEmail">Contato adicionado!</span>');
@@ -378,7 +373,8 @@ var lista = $('.tdEmail');
 
     function RemoveContato(tr){
 
-        tr.closest('tr').remove();
+      tr.closest('tr').remove();
+
 
     }
 
@@ -390,7 +386,52 @@ function fechaModal(){
     $('.erroEmail').remove();
     $("#modalForm").trigger("reset");
 }
+$("#contatoTelefone").mask("(00) 0000-0000");
+$("#contatoCelular").mask("(00) 00000-0000");
+$("#cnpj").mask("00.000.000/0000-00");
+
+//busca item
+
+$('#selectcategorias').change(function(){
+    console.log($('#selectcategorias').val());
+  if($('#selectcategorias').val()==0)
+  $("#selectItems").empty();
+    $.ajax({
+            url: '{{ route('Painel.Fornecedores.buscaItems') }}',
+            type: 'POST',
+            data: {
+               _token: '{{ csrf_token() }}',
+               id_categoria: $('#selectcategorias').val(),
+
+            },
+            dataType: 'JSON',
+            success: function(data){
+                if (data.length >0) {
+                    $("#selectItems").empty();
+                    $.each(data, function (i, item) {
+                        $('#selectItems').append($('<option>', {
+                            value:item.id,
+                            text : item.nome
+                        }));
+                    });
+
+                } else {
+                    console.log(data);
+
+                }
+            },
+            error: function() {
+                console.log(data);
+            }
+         });
+
+
+    });
+
+
+
+
 
 
 </script>
-
+@endsection

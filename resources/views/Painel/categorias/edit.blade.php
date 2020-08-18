@@ -58,7 +58,7 @@
                             <!-- NOME -->
                             <div class="form-group has-feedback">
                                 <label for="nome">Nome:</label>
-                                <input type="text" class="form-control  {{ $errors->has('nome') ? ' is-invalid' : '' }}"
+                                <input type="text" name="nome" class="form-control  {{ $errors->has('nome') ? ' is-invalid' : '' }}"
                                     placeholder="Nome Completo"value="{{ old('nome') ?? $categoria->nome}}"
                                     autofocus required>
                                 <span class="form-control-feedback"></span>
@@ -88,7 +88,7 @@
 
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar categoria</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Alterar categoria</button>
                             </div>
 
                         </form>

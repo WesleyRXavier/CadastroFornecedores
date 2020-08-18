@@ -55,6 +55,26 @@
                         <form action="{{ route('Painel.Items.update',['item' => $item->id]) }}" method="post">
                             @csrf
                             @method('PUT')
+
+                            <!-- CATEGORIA -->
+                            <div class="form-group has-feedback">
+                                <label>Categorias</label>
+                                <select class="selectCategorias form-control  col-md-12" name="id_categoria" id="categoriaItem" single>
+                                    <option value="volvo" disabled >Selecione uma categoria para o item</option>
+                                    @foreach($categorias as $categoria)
+                                    <option value="{{ $categoria->id }}" {{ (old('id_categoria') == $categoria->id ? 'selected' : ($item->categoria->id == $categoria->id ? 'selected' : '')) }}>
+
+                                        {{$categoria->nome}}
+                                    </option>
+                                    @endforeach
+
+                                </select>
+                                @if ($errors->has('id_categoria'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong class="alert-danger">{{ $errors->first('id_categoria') }}</strong>
+                                </span>
+                                @endif
+                            </div>
                             <!-- NOME -->
                             <div class="form-group has-feedback">
                                 <label for="nome">Nome:</label>
@@ -82,32 +102,14 @@
                                 @endif
 
                             </div>
-                            <!-- CATEGORIA -->
-                            <div class="form-group has-feedback">
-                                <label>Categorias</label>
-                                <select class="selectCategorias form-control  col-md-12" name="id_categoria" id="categoriaItem" single>
-                                    <option value="volvo" disabled >Selecione uma categoria para o item</option>
-                                    @foreach($categorias as $categoria)
-                                    <option value="{{ $categoria->id }}" {{ (old('id_categoria') == $categoria->id ? 'selected' : ($item->categoria->id == $categoria->id ? 'selected' : '')) }}>
 
-                                        {{$categoria->nome}}
-                                    </option>
-                                    @endforeach
-
-                                </select>
-                                @if ($errors->has('id_categoria'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong class="alert-danger">{{ $errors->first('id_categoria') }}</strong>
-                                </span>
-                                @endif
-                            </div>
 
 
 
 
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar categoria</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Alterar Item</button>
                             </div>
 
                         </form>

@@ -65,8 +65,15 @@
                                                         {{ $contato->nome }}
                                                     </td>
                                                     <td>
-                                                        {{ $contato->telefone }}@if(($contato->telefone)&&($contato->celular))?
-                                                        '/':"" @endif{{ $fornecedor->celular }}
+
+                                                        @if (($contato->telefone )&&( $contato->celular))
+                                                        {{ $contato->telefone }} / {{ $contato->celular }}
+                                                        @else
+                                                        {{ $contato->telefone }}{{ $contato->celular }}
+
+                                                        @endif
+
+
                                                     </td>
                                                     <td>
                                                         {{ $contato->email }}

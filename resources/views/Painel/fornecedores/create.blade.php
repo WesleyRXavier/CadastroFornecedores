@@ -26,9 +26,10 @@
     caption {
         text-align: center
     }
-    .select2-selection__choice__display{
-    color: rgb(44, 44, 44);
-}
+
+    .select2-selection__choice__display {
+        color: rgb(44, 44, 44);
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -52,7 +53,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body  ">
-                        <form action="{{ route('Painel.Fornecedores.store') }}" method="post" >
+                        <form action="{{ route('Painel.Fornecedores.store') }}" method="post">
                             @csrf
 
                             <!-- NOME -->
@@ -95,7 +96,7 @@
                                         data-target="#myModal">Adicionar
                                         contato </button>
                                 </div>
-                                <table class="table table-dark"   id="tblContatos">
+                                <table class="table table-dark" id="tblContatos">
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
@@ -129,7 +130,8 @@
                             <!-- CATEGORIA -->
                             <div class="form-group has-feedback">
                                 <label>Categoria</label>
-                                <select class="selectCategorias form-control  col-md-12" name="categorias[]" multiple="multiple">
+                                <select class="selectCategorias form-control  col-md-12" name="categorias[]"
+                                    id="selectcategorias" multiple="multiple">
                                     @foreach($categorias as $categoria)
                                     <option value="{{$categoria->id}}"
                                         {{in_array($categoria->id, old("categorias") ?: []) ? "selected": ""}}>
@@ -146,9 +148,11 @@
                             </div>
 
                             <!-- ITEM -->
+
                             <div class="form-group">
                                 <label>Items(Produtos)</label>
-                                <select class=" form-control selectItems col-md-12" name="items[]" multiple="multiple">
+                                <select class=" form-control selectItems col-md-12" name="items[]" id="selectItems"
+                                    multiple="multiple">
                                     @foreach ($categorias as $categoria)
                                     <optgroup label="{{ $categoria->nome }}">
                                         @foreach ($items as $item)
@@ -166,17 +170,22 @@
                                 @if (old('contatosNome'))
                                 @foreach (old('contatosNome') as $contatosNome)
 
-                                    <input type="hidden" value="{{ old('contatosNome.'.$loop->index)  }}" name="contatosNome[]"/>
-                                    <input type="hidden" value="{{ old('contatosTelefone.'.$loop->index)  }}" name="contatosTelefone[]"/>
-                                    <input type="hidden" value="{{ old('contatosCelular.'.$loop->index)  }}" name="contatosCelular[]"/>
-                                    <input type="hidden" value="{{ old('contatosEmail.'.$loop->index)  }}" name="contatosEmail[]"/>
+                                <input type="hidden" value="{{ old('contatosNome.'.$loop->index)  }}"
+                                    name="contatosNome[]" />
+                                <input type="hidden" value="{{ old('contatosTelefone.'.$loop->index)  }}"
+                                    name="contatosTelefone[]" />
+                                <input type="hidden" value="{{ old('contatosCelular.'.$loop->index)  }}"
+                                    name="contatosCelular[]" />
+                                <input type="hidden" value="{{ old('contatosEmail.'.$loop->index)  }}"
+                                    name="contatosEmail[]" />
 
                                 @endforeach
                                 @endif
                             </div>
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar Fornecedor</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar
+                                    Fornecedor</button>
                             </div>
 
                         </form>
@@ -212,13 +221,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="contatoTelefone">Telefone Fixo:</label>
-                            <input type="text" class="form-control" name="contatoTelefone" id="contatoTelefone"
-                                >
+                            <input type="text" class="form-control" name="contatoTelefone" id="contatoTelefone">
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="celular">WhatsApp:</label>
-                            <input type="text" class="form-control" name="contatoCelular" id="contatoCelular"
-                                >
+                            <input type="text" class="form-control" name="contatoCelular" id="contatoCelular">
                         </div>
                         <div class="form-group col-md-12" style="margin-bottom: 50px">
                             <label for="contatoEmail">Email:</label>
@@ -228,7 +235,8 @@
                 <div class="erroCampo"></div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="fechaModal()">Fechar</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"
+                        onclick="fechaModal()">Fechar</button>
                     <button type="submit" onclick="SalvaContato()" class="btn btn-success">Salvar</button>
                 </div>
                 </form>
@@ -246,8 +254,6 @@
 
 
 <script>
-
-
     function SalvaContato(){
         event.preventDefault();
         var nome = $('#contatoNome').val();
@@ -340,6 +346,47 @@ $("#contatoCelular").mask("(00) 00000-0000");
 $("#cnpj").mask("00.000.000/0000-00");
 
 
-</script>
-@endsection
 
+//busca item
+
+$('#selectcategorias').change(function(){
+    console.log($('#selectcategorias').val());
+  if($('#selectcategorias').val()==0)
+  $("#selectItems").empty();
+    $.ajax({
+            url: '{{ route('Painel.Fornecedores.buscaItems') }}',
+            type: 'POST',
+            data: {
+               _token: '{{ csrf_token() }}',
+               id_categoria: $('#selectcategorias').val(),
+
+            },
+            dataType: 'JSON',
+            success: function(data){
+                if (data.length >0) {
+                    $("#selectItems").empty();
+                    $.each(data, function (i, item) {
+                        $('#selectItems').append($('<option>', {
+                            value:item.id,
+                            text : item.nome
+                        }));
+                    });
+
+                } else {
+                    console.log(data);
+
+                }
+            },
+            error: function() {
+                console.log(data);
+            }
+         });
+
+
+    });
+
+
+</script>
+
+
+@endsection

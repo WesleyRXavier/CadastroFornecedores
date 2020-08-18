@@ -50,6 +50,7 @@ class FonecedoresController extends Controller
     public function store(RequestFornecedores $request)
     {
         $data = $request->all();
+        dd($data);
 
         $categorias = $data['categorias'];
         $contatosEmail = $data['contatosEmail'];
@@ -166,7 +167,40 @@ class FonecedoresController extends Controller
      */
     public function update(RequestFornecedores $request, $id)
     {
-        dd($request);
+
+        $fornecedor = Fornecedor::where('id', $id)->first();
+      //  dd($request);
+        $fornecedor->nome = $request->nome;
+        $fornecedor->cnpj = $request->cnpj;
+        $fornecedor->status = $request->status;
+        $fornecedor->save();
+
+        $fornecedor->categorias()->detach($fornecedor->categorias);
+        $fornecedor->categorias()->attach($request->categorias);
+        $fornecedor->items()->detach($fornecedor->items);
+        $fornecedor->items()->attach($request->items);
+
+        $fornecedor->contatos()->delete();
+
+        $i = 0;
+            foreach ($request->contatosEmail as $contatoEmail) {
+
+                $contato = new Contato();
+                $contato->nome = $request->contatosNome[$i];
+                $contato->telefone = $request->contatosTelefone[$i];
+                $contato->celular = $request->contatosCelular[$i];
+                $contato->email = $contatoEmail;
+                $contato->status = 1;
+                $contato->id_fornecedor = $fornecedor->id;
+                $contato->save();
+                $i += 1;
+
+            }
+
+            toastr()->success('Fornecedor Foi Alterado!');
+            return redirect()->route('Painel.Fornecedores.index');
+
+
     }
 
     /**
@@ -186,4 +220,23 @@ class FonecedoresController extends Controller
         toastr()->success('deletado!');
         return redirect()->route('Painel.Fornecedores.index');
     }
+
+    public function buscaItems(Request $request){
+
+        $categorias = $request->id_categoria;
+
+
+     $items = Item::whereIn('id_categoria',$categorias)->get();
+
+        if($items->count() > 0){
+
+        return response()->json($items);
+        }else{
+            $item = 'Nunumitem';
+            return response()->json($items);
+        }
+    }
+
+
+
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\painel\Categorias;
 
-use Illuminate\Http\Request;
+use App\Categoria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\categoriaRequest;
-
-use App\Categoria;
+use Illuminate\Http\Request;
 
 class CategoriasController extends Controller
 {
@@ -83,9 +82,15 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(categoriaRequest $request, $id)
     {
-        dd($id);
+        $categoria = Categoria::find($id);
+        $categoria->nome = $request->nome;
+        $categoria->descricao = $request->descricao;
+        $categoria->save();
+        toastr()->success('Alterado com sucesso!');
+        return redirect()->route('Painel.Categorias.index');
+
     }
 
     /**
@@ -100,7 +105,7 @@ class CategoriasController extends Controller
         $categoria->fornecedores()->detach($categoria->fornecedores);
         $categoria->delete();
 
-        toastr()->success('deletado!');
+        toastr()->success('Categorias e seus Items foram Deletados');
         return redirect()->route('Painel.Categorias.index');
     }
 }

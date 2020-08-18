@@ -44,7 +44,7 @@ class RequestFornecedores extends FormRequest
         public function messages(){
 
             return  [
-                'required' => '   :attribute e obrigatorio.',
+                'required' => '   :attribute obrigatorio.',
                 'min' => ' O campo de ter no minimo :min caracteres.',
 
 

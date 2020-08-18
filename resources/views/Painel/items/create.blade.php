@@ -26,9 +26,10 @@
     caption {
         text-align: center
     }
-    .select2-selection__choice__display{
-    color: rgb(44, 44, 44);
-}
+
+    .select2-selection__choice__display {
+        color: rgb(44, 44, 44);
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -55,37 +56,12 @@
                         <form action="{{ route('Painel.Items.store') }}" method="post">
                             @csrf
 
-                            <!-- NOME -->
-                            <div class="form-group has-feedback">
-                                <label for="nome">Nome:</label>
-                                <input type="text" class="form-control  {{ $errors->has('nome') ? ' is-invalid' : '' }}"
-                                    placeholder="Nome Completo" value="{{ old('nome') }}" name="nome" id="nome"
-                                    autofocus required>
-                                <span class="form-control-feedback"></span>
-                                @if ($errors->has('nome'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong class="alert-danger">{{ $errors->first('nome') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <!-- DESCRICAO-->
-                            <div class="form-group has-feedback ">
-                                <label for="descricao">Descrição:</label>
-                                <input type="text" class="form-control {{ $errors->has('descricao') ? ' is-invalid' : '' }}"
-                                    placeholder="descricao" value="{{ old('descricao') }}" name="descricao" id="descricao"
-                                    autofocus required>
-                                <span class="form-control-feedback"></span>
-                                @if ($errors->has('descricao'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong class="alert-danger">{{ $errors->first('descricao') }}</strong>
-                                </span>
-                                @endif
 
-                            </div>
                             <!-- CATEGORIA -->
                             <div class="form-group has-feedback">
                                 <label>Categorias</label>
-                                <select class="selectCategorias form-control  col-md-12" name="id_categoria" id="categoriaItem" single>
+                                <select class="selectCategorias form-control  col-md-12" name="id_categoria"
+                                    id="categoriaItem" single>
                                     <option value="volvo" disabled selected>Selecione uma categoria para o item</option>
                                     @foreach($categorias as $categoria)
                                     <option value="{{$categoria->id}}"
@@ -105,9 +81,44 @@
 
 
 
+
+                            <!-- NOME -->
+                            <div class="form-group has-feedback">
+                                <label for="nome">Nome:</label>
+                                <input type="text" class="form-control  {{ $errors->has('nome') ? ' is-invalid' : '' }}"
+                                    placeholder="Nome Completo" value="{{ old('nome') }}" name="nome" id="nome"
+                                    autofocus required>
+                                <span class="form-control-feedback"></span>
+                                @if ($errors->has('nome'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong class="alert-danger">{{ $errors->first('nome') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                            <!-- DESCRICAO-->
+                            <div class="form-group has-feedback ">
+                                <label for="descricao">Descrição:</label>
+                                <input type="text"
+                                    class="form-control {{ $errors->has('descricao') ? ' is-invalid' : '' }}"
+                                    placeholder="descricao" value="{{ old('descricao') }}" name="descricao"
+                                    id="descricao" autofocus required>
+                                <span class="form-control-feedback"></span>
+                                @if ($errors->has('descricao'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong class="alert-danger">{{ $errors->first('descricao') }}</strong>
+                                </span>
+                                @endif
+
+                            </div>
+
+
+
+
+
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar categoria</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar
+                                    categoria</button>
                             </div>
 
                         </form>
@@ -125,4 +136,3 @@
 
 
 @endsection
-

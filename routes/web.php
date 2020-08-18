@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Painel'], function () {
     Route::get('/Painel/Fornecedores/edit/{id}', 'Fornecedores\FonecedoresController@edit')->name('Painel.Fornecedores.edit');
     Route::put('/Painel/Fornecedores/update/{id}', 'Fornecedores\FonecedoresController@update')->name('Painel.Fornecedores.update');
     Route::get('/Painel/Fornecedores/show/{id}', 'Fornecedores\FonecedoresController@show')->name('Painel.Fornecedores.show');
+    Route::post('/Painel/Fornecedores/buscaItems', 'Fornecedores\FonecedoresController@buscaItems')->name('Painel.Fornecedores.buscaItems');
 
     //rotas categorias ----------------------------------------------------------------------------------------------
     Route::get('/Painel/Categorias', 'Categorias\CategoriasController@index')->name('Painel.Categorias.index');
