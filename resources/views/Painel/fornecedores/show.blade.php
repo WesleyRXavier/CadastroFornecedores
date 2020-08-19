@@ -105,13 +105,18 @@
                                             cellspacing="0" rules="all" border="1" id=""
                                             style="border-collapse:collapse;">
                                             @if($fornecedor->categorias->count()> 0)
+                                            <ol>
                                                 @foreach ($fornecedor->categorias as $categoria )
-                                                    <p>{{ $categoria->nome }} :</p>
-                                                    @foreach ($categoria->items as $item)
-                                                    <p>{{ $item->nome }}</p>
 
+                                                    <li>{{ $categoria->nome }} :</li>
+
+                                                    @foreach ($categoria->items as $item)
+                                                    <ol>
+                                                    {{(in_array($item->id, $fornecedoItems ?: []) ? $item->nome:'' )}}
+                                                    </ol>
                                                     @endforeach
                                                 @endforeach
+                                            </ol>
                                             @else
                                             <td colspan="5">
                                                 Nenhuma categoria encontrado!

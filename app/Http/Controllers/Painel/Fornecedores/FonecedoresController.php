@@ -124,10 +124,16 @@ class FonecedoresController extends Controller
      */
     public function show($id)
     {
+        $fornecedoItems = null;
         $fornecedor = Fornecedor::find($id);
+        if ($fornecedor->items->count() > 0) {
+            for ($i = 0; $i < $fornecedor->items->count(); $i++) {
+                $fornecedoItems[$i] = $fornecedor->items[$i]->id;
+            }
+        }
         $title =$fornecedor->nome;
 
-        return view('Painel.Fornecedores.show', compact('title', 'fornecedor'));
+        return view('Painel.Fornecedores.show', compact('title', 'fornecedor','fornecedoItems'));
 
     }
 

@@ -32,6 +32,7 @@
 
                                     <th>Nome</th>
                                     <th>Cnpj</th>
+                                    <th>Categorias</th>
                                     <th>Status</th>
                                     <th>Detalhar</th>
                                     <th>Ação</th>
@@ -41,10 +42,14 @@
 
                                 @foreach($fornecedores as $fornecedor)
                                     <tr>
-                                        <td>{{ $fornecedor->nome }}</td>
+                                        <td><a href="{{ route('Painel.Fornecedores.show', $fornecedor->id) }}">{{  $fornecedor->nome }}</a></td>
                                         <td>{{ $fornecedor->cnpj }}</td>
-
-                                        <td>{{ ($fornecedor->status=='1'? 'Ativo': 'Desativado') }}</td>
+                                        <td>
+                                            @foreach ($fornecedor->categorias()->get() as $categoria )
+                                            <li class="liCategoria">{{ $categoria->nome }}</li>
+                                        @endforeach
+                                    </td>
+                                    <td>{{ ($fornecedor->status=='1'? 'Ativo': 'Desativado') }}</td>
                                         <td> <a href="{{ route('Painel.Fornecedores.show', $fornecedor->id)}}" class="btn btn-info ">Ver mais »</a></td>
                                         <td style="display: flex">
 
@@ -65,6 +70,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Cnpj</th>
+                                    <th>Categorias</th>
                                     <th>Status</th>
                                     <th>Detalhar</th>
                                     <th>Ação</th>

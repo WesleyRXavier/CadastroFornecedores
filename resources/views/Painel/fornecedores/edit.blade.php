@@ -128,7 +128,7 @@
                                         @if (old('contatosNome'))
                                         @foreach (old('contatosNome') as $contatosNome)
                                         <tr name="contatos">
-                                            <td>{{ old('contatosNome.'.$loop->index)  }}"</td>
+                                            <td>{{ old('contatosNome.'.$loop->index)  }}</td>
                                             <td>{{ old('contatosTelefone.'.$loop->index)  }}/{{ old('contatosCelular.'.$loop->index) }}
                                             </td>
                                             <td class="tdEmail">{{ old('contatosEmail.'.$loop->index)  }}</td>
@@ -152,7 +152,7 @@
                                         @if ($contatos)
                                         @foreach ($contatos as $contato)
                                         <tr name="contatos">
-                                            <td>{{ $contato->nome  }}"</td>
+                                            <td>{{ $contato->nome  }}</td>
                                             <td>{{ $contato->telefone  }}/{{ $contato->celular}}
                                             </td>
                                             <td class="tdEmail">{{ $contato->email }}</td>
@@ -219,7 +219,7 @@
                             </div>
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Cadastrar
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Alterar
                                     Fornecedor</button>
                             </div>
 
