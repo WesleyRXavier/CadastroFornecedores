@@ -48,4 +48,7 @@ Route::group(['namespace' => 'Painel'], function () {
     Route::get('/Painel/Items/edit/{id}', 'Items\ItemsController@edit')->name('Painel.Items.edit');
     Route::put('/Painel/Items/update/{id}', 'Items\ItemsController@update')->name('Painel.Items.update');
 
+
+    //Certidoes
+    Route::post('/Painel/Certidoes/store', 'Certidao\CertidaoController@store')->name('Painel.Certidoes.store');
 });

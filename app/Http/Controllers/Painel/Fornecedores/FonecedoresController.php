@@ -8,6 +8,8 @@ use App\Fornecedor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFornecedores;
 use App\Item;
+use App\Certidao;
+use App\tipoCertidao;
 use Illuminate\Http\Request;
 
 class FonecedoresController extends Controller
@@ -50,7 +52,7 @@ class FonecedoresController extends Controller
     public function store(RequestFornecedores $request)
     {
         $data = $request->all();
-        dd($data);
+
 
         $categorias = $data['categorias'];
         $contatosEmail = $data['contatosEmail'];
@@ -126,14 +128,15 @@ class FonecedoresController extends Controller
     {
         $fornecedoItems = null;
         $fornecedor = Fornecedor::find($id);
+
         if ($fornecedor->items->count() > 0) {
             for ($i = 0; $i < $fornecedor->items->count(); $i++) {
                 $fornecedoItems[$i] = $fornecedor->items[$i]->id;
             }
         }
         $title =$fornecedor->nome;
-
-        return view('Painel.Fornecedores.show', compact('title', 'fornecedor','fornecedoItems'));
+        $tiposCertidoes = tipoCertidao::all();
+        return view('Painel.Fornecedores.show', compact('title', 'fornecedor','fornecedoItems','tiposCertidoes'));
 
     }
 

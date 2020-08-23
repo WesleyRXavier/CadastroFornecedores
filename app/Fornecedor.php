@@ -26,6 +26,11 @@ class Fornecedor extends Model
     public function contatos(){
         return $this->hasmany(Contato::class,'id_fornecedor');
     }
+    public function certidoes(){
+        return $this->hasmany(Certidao::class,'id_fornecedor', 'id');
+    }
+
+
 
 
     private function clearField(?string $param)

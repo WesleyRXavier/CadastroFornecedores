@@ -3,7 +3,7 @@
     <a href="{{ route('Painel.Principal.Show') }}" class="logo">
         <span class="logo-mini"><b>P</b>C</span>
 
-        <span class="logo-lg">{{ env('APP_NAME') }}</span>
+        <span class="logo-lg">SRSV -  Compras</span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
