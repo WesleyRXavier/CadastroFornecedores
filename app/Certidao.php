@@ -25,7 +25,7 @@ class Certidao extends Model
         $this->attributes['validade'] = (!empty($value) ? $this->convertStringToDate($value) : null);
     }
 
-    public function getValidadeAttribute($value)
+    /*public function getValidadeAttribute($value)
     {
         if (empty($value)) {
             return null;
@@ -33,7 +33,7 @@ class Certidao extends Model
 
         return date('d/m/Y', strtotime($value));
     }
-
+*/
     private function convertStringToDate($param)
     {
         if(empty($param)) {

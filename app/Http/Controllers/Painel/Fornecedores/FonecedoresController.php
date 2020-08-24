@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFornecedores;
 use App\Item;
 use App\Certidao;
-use App\tipoCertidao;
+use App\TipoCertidao;
 use Illuminate\Http\Request;
 
 class FonecedoresController extends Controller
@@ -135,7 +135,7 @@ class FonecedoresController extends Controller
             }
         }
         $title =$fornecedor->nome;
-        $tiposCertidoes = tipoCertidao::all();
+        $tiposCertidoes = TipoCertidao::all();
         return view('Painel.Fornecedores.show', compact('title', 'fornecedor','fornecedoItems','tiposCertidoes'));
 
     }

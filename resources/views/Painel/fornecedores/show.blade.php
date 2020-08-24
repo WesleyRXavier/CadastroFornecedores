@@ -145,20 +145,19 @@
                                                 @foreach ($fornecedor->certidoes as $certidao )
 
                                                 <li class="liCertidao" style="padding:5px ">{{ $certidao->tipodeCertidao->nome }} »
-                                                    @if(date( 'Y-m-d' , strtotime($certidao->validade))<
-                                                        Carbon\Carbon::today())<a style="color: red;cursor:pointer"
+                                                    @if(strtotime( $certidao->validade)<
+                                                        strtotime( date('Y-m-d')))<a style="color: red;cursor:pointer"
                                                         data-toggle="modal" data-target="#myModal"
                                                         data-tipo="{{ $certidao->tipodeCertidao->id }}"
                                                         data-fornecedor="{{ $fornecedor->id }}"> Esta Certidão
-                                                        venceu dia {{ $certidao->validade}}, faça a
+                                                        venceu dia {{ date('d/m/Y', strtotime($certidao->validade))}}, faça a
                                                         substituicao </a>
                                                          @else
                                                          <a href="{{url('storage/'. $certidao->url) }}" target="blank" style="color: green;"
                                                             > Esta
-                                                            Certidão e valida ate {{ $certidao->validade }}
+                                                            Certidão e valida ate {{ date('d/m/Y', strtotime($certidao->validade))}}
                                                             - Clique
                                                             para baixar </a> @endif </li>
-
 
 
                                                 @endforeach
@@ -180,6 +179,11 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="deletar">
+                            <p>{{ date("Y-m-d")}}</p>
+                            <p>{{ $certidao->validade}}</p>
                         </div>
 
 
